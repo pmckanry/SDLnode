@@ -1,9 +1,7 @@
-#include <node_api.h>
+#include <napi.h>
 
-
-
-napi_value Init(napi_env env, napi_value exports) {
+Napi::Object Init(Napi::Env env, Napi::Object exports) {
     return exports;
 }
 
-NAPI_MODULE(SDLnode, Init)
+NODE_API_MODULE(SDLnode, Init)
