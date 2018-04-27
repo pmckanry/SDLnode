@@ -1,9 +1,9 @@
 {
     "targets": [
         {
-            "target_name": "SDLnode",
+            "target_name": "node-sdl",
             "sources": [ 
-                "src/SDLnode.cc" ,
+                "src/node-sdl.cc" ,
                 "src/sdl.cc",
                 "src/window.cc",
                 "src/renderer.cc",
@@ -11,14 +11,21 @@
                 "src/surface.cc"
             ],
             "include_dirs": [
-                "/usr/include/SDL2",
+                "<!@(node -p \"process.cwd()\")/deps/SDL2/include",
+                "<!@(node -p \"process.cwd()\")/deps/SDL2_image/include",
+                "<!@(node -p \"process.cwd()\")/deps/SDL2_mixer/include",
+                "<!@(node -p \"process.cwd()\")/deps/SDL2_ttf/include",
                 "<!@(node -p \"require('node-addon-api').include\")"
             ],
             "dependencies": [
                 "<!(node -p \"require('node-addon-api').gyp\")"
             ],
             "libraries": [
-                "-lSDL2", "-lSDL2main", "-lSDL2_image", "-lSDL2_ttf"
+                "-L<!@(node -p \"process.cwd()\")/deps/SDL2/lib/x64/SDL2", 
+                "-L<!@(node -p \"process.cwd()\")/deps/SDL2/lib/x64/SDL2main", 
+                "-L<!@(node -p \"process.cwd()\")/deps/SDL2_image/lib/x64/SDL2_image", 
+                "-L<!@(node -p \"process.cwd()\")/deps/SDL2_ttf/lib/x64/SDL2_ttf", 
+                "-L<!@(node -p \"process.cwd()\")/deps/SDL2_mixer/lib/x64/SDL_mixer"
             ],
             "cflags!": [ "-fno-exceptions" ],
             "cflags_cc!": [ "-fno-exceptions" ],
