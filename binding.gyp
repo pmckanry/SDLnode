@@ -8,7 +8,9 @@
                 "src/window.cc",
                 "src/renderer.cc",
                 "src/texture.cc",
-                "src/surface.cc"
+                "src/surface.cc",
+                "src/rect.cc",
+                "src/point.cc"
             ],
             "include_dirs": [
                 "<!@(node -p \"process.cwd()\")/deps/SDL2/include",
@@ -24,8 +26,8 @@
                 "-l<!(node -p \"process.cwd()\")/deps/SDL2/lib/x64/SDL2", 
                 "-l<!(node -p \"process.cwd()\")/deps/SDL2/lib/x64/SDL2main", 
                 "-l<!(node -p \"process.cwd()\")/deps/SDL2_image/lib/x64/SDL2_image", 
-                "-l<!(node -p \"process.cwd()\")/deps/SDL2_ttf/lib/x64/SDL2_ttf", 
-                "-l<!(node -p \"process.cwd()\")/deps/SDL2_mixer/lib/x64/SDL_mixer"
+                "-l<!(node -p \"process.cwd()\")/deps/SDL2_mixer/lib/x64/SDL2_mixer",
+                "-l<!(node -p \"process.cwd()\")/deps/SDL2_ttf/lib/x64/SDL2_ttf"
             ],
             "cflags!": [ "-fno-exceptions" ],
             "cflags_cc!": [ "-fno-exceptions" ],

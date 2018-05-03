@@ -42,12 +42,12 @@ Rect::Rect(const Napi::CallbackInfo& info) : Napi::ObjectWrap<Rect>(info) {
         }
         else if(info.Length() < 4) {
             throw Napi::Error::New(info.Env(), "Invalid number of arguments");
+        } else {
+            x = info[0].As<Napi::Number>().Int32Value();
+            y = info[1].As<Napi::Number>().Int32Value();
+            w = info[2].As<Napi::Number>().Int32Value();
+            h = info[3].As<Napi::Number>().Int32Value();
         }
-
-        x = info[0].As<Napi::Number>().Int32Value();
-        y = info[1].As<Napi::Number>().Int32Value();
-        w = info[2].As<Napi::Number>().Int32Value();
-        h = info[3].As<Napi::Number>().Int32Value();
     }
 
     _rect = SDL_Rect {
