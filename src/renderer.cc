@@ -1,10 +1,12 @@
 #include <napi.h>
 #include <SDL.h>
+#include <vector>
 
 #include "renderer.h"
 #include "surface.h"
 #include "texture.h"
 #include "rect.h"
+#include "point.h"
 
 Napi::FunctionReference Renderer::constructor;
 
@@ -78,15 +80,43 @@ Napi::Value Renderer::CreateTexture(const Napi::CallbackInfo& info) {
 }
 
 void Renderer::DrawPoint(const Napi::CallbackInfo& info) {
-    
+    if(info.Length() < 1) {
+        throw Napi::Error::New(info.Env(), "Invalid number of arguments");
+    }
+
+    Napi::Object obj = info[0].As<Napi::Object>();
+    Point* point = Point::Unwrap(obj);
+
+    SDL_RenderDrawPoint(_renderer, point->GetPoint()->x, point->GetPoint()->y);
 }
 
 void Renderer::DrawPoints(const Napi::CallbackInfo& info) {
+    if(info.Length() < 1) {
+        throw Napi::Error::New(info.Env(), "Invalid number of arguments");
+    }
 
+    Napi::Array arr = info[0].As<Napi::Array>();
+
+    uint32_t len = arr.Length();
+    std::vector<SDL_Point> points;
+
+    for(uint32_t i = 0; i < len; i++) {
+        Napi::Value val = arr[i];
+        Point* p = Point::Unwrap(val.As<Napi::Object>());
+        points.push_back(*(p->GetPoint()));
+    }
+
+    SDL_RenderDrawPoints(_renderer, points.data(), points.size());
 }
 
 void Renderer::DrawLine(const Napi::CallbackInfo& info) {
+    if(info.Length() < 2) {
+        throw Napi::Error::New(info.Env(), "Invalid number of arguments");
+    }
+    Point* p1 = Point::Unwrap(info[0].As<Napi::Object>());
+    Point* p2 = Point::Unwrap(info[1].As<Napi::Object>());
 
+    SDL_RenderDrawLine(_renderer, p1->GetPoint()->x, p1->GetPoint()->y, p2->GetPoint()->x, p2->GetPoint()->y);
 }
 
 void Renderer::DrawLines(const Napi::CallbackInfo& info) {

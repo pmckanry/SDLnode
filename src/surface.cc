@@ -12,7 +12,7 @@ void Surface::Init(Napi::Env env, Napi::Object exports) {
         InstanceMethod("lock", &Surface::Lock),
         InstanceMethod("unlock", &Surface::Unlock),
         InstanceMethod("createSoftwareRenderer", &Surface::CreateSoftwareRenderer),
-        StaticMethod("load", &Surface::Load)
+        StaticMethod("loadImage", &Surface::LoadImage)
     });
 
     constructor = Napi::Persistent(tpl);
@@ -32,7 +32,7 @@ Surface::~Surface() {
     SDL_FreeSurface(_surface);
 }
 
-Napi::Value Surface::Load(const Napi::CallbackInfo& info) {
+Napi::Value Surface::LoadImage(const Napi::CallbackInfo& info) {
     if(info.Length() < 1) {
         throw Napi::Error::New(info.Env(), "Invalid number of arguments");
     }

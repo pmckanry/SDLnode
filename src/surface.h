@@ -8,7 +8,7 @@ class Surface : public Napi::ObjectWrap<Surface> {
 public:
     static void Init(Napi::Env env, Napi::Object exports);
     static Napi::FunctionReference constructor;
-    static Napi::Value Load(const Napi::CallbackInfo& info);
+    static Napi::Value LoadImage(const Napi::CallbackInfo& info);
 
     Surface(const Napi::CallbackInfo& info);
     ~Surface();
