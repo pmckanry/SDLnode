@@ -1,5 +1,6 @@
 #include <napi.h>
 
+#include "sdl.h"
 #include "window.h"
 #include "renderer.h"
 #include "surface.h"
@@ -8,6 +9,7 @@
 #include "point.h"
 
 Napi::Object InitAll(Napi::Env env, Napi::Object exports) {
+    SDL::Init(env, exports);
     Window::Init(env, exports);
     Renderer::Init(env, exports);
     Surface::Init(env, exports);
